@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import Dashboard from "./src/classes/Dashboard";
 import SplashScreen from "./src/classes/SplashScreen";
 import Login from "./src/Login/Login";
-import ForgotPassword from "./src/Login/ForgotPassword";
+import ForgotPassword from "./src/Login/ForgotPassword";  // test comment
 
 
 function NavStack() {
