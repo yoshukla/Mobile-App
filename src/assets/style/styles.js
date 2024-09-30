@@ -1760,6 +1760,9 @@ export const Styles = {
     },
     'backgroundGreyColor': {
         backgroundColor: Colors.boderGreyColor
-    }
+    },
+    'text_color_light_grey': {
+        color: Colors.very_light_grey
+    },
 
 }

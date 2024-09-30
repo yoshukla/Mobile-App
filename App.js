@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-import Dashboard from "./src/classes/Dashboard";
 import SplashScreen from "./src/classes/SplashScreen";
 import Login from "./src/Login/Login";
 import ForgotPassword from "./src/Login/ForgotPassword";  // test comment
+import Dashboard from "./src/Login/Dashboard";
 
 
 function NavStack() {
@@ -12,6 +12,7 @@ function NavStack() {
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
+      <Stack.Screen name="Dashboard" component={Dashboard}/>
     </Stack.Navigator>
   )
 }
