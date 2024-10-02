@@ -28,7 +28,7 @@ export const strings = {
     'proceed': 'Proceed',
     'login': 'Login',
     'countery_code': '+91',
-    'createAnAccount': 'Create an account',
+    'createAccount': 'Create account',
     'pleaseEnterAllTheDetails': 'Please enter all the details',
     'name': 'Name',
     'firmName': 'Firm Name',
@@ -348,5 +348,15 @@ export const strings = {
     'please_enter_min_four': 'Minimum four characters required for',
     'rejected': 'Rejected',
     'ekyc_rejected': 'Your KYC has been rejected',
-    'editInfo': "Press and hold on the image to delete or upload it."
+    'editInfo': "Press and hold on the image to delete or upload it.",
+
+
+
+
+    // MediLog Strings
+    'fullName': 'Full Name',
+    'emergencyContactNumber' : 'Emergency Contact Number',
+    'cityTown' : 'City/Town',
+    'bloodGroup' : 'Blood Group',
+    'confirmPassword' : 'Confirm Password',
 }  

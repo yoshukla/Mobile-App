@@ -37,10 +37,15 @@ const Login = () => {
     }
 
 
+    const navigateToSignUp = () => {
+        navigation.navigate('SignUpNew')
+    }
+
+
     return (
         <BackgroundWrapper>
             <View style={[styles['full_screen']]}>
-                {Platform.OS === 'android' && <StatusBar backgroundColor="#EFF6FF"  barStyle='dark-content' />}
+                {Platform.OS === 'android' && <StatusBar backgroundColor="#EFF6FF" barStyle='dark-content' />}
 
                 <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='handled'>
 
@@ -58,7 +63,7 @@ const Login = () => {
                         </View>
 
                         <View style={[styles['margin_top_30'], styles['width_90%'], styles['align_self_center']]}>
-                        <InputComponent
+                            <InputComponent
                                 labelName={"Email"}
                                 icon={require('../assets/images/medilog/ic_email.png')}
                                 placeholder={'MediLog ID'}
@@ -158,10 +163,9 @@ const Login = () => {
                         <View style={{
                             flexDirection: 'row',
                             justifyContent: 'center',
-                            marginTop: 50,
-                        }}>
+                            marginTop: 50,}}>
                             <Text style={{ color: '#000000' }}>Don’t have an account? </Text>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={navigateToSignUp}>
                                 <Text style={{ color: '#2A1295', fontWeight: 'bold' }}>Sign Up</Text>
                             </TouchableOpacity>
                         </View>
