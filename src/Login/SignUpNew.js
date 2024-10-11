@@ -1,4 +1,4 @@
-import { Dimensions, Image, Platform, ScrollView, StatusBar, Text, View, TouchableOpacity, Alert } from "react-native";
+import { Dimensions, Image, Platform, ScrollView, StatusBar, Text, View, TouchableOpacity, StyleSheet, Alert, Modal, Button } from "react-native";
 import { BuildStyleOverwrite } from '../assets/style/BuildStyle';
 import { Styles } from '../assets/style/styles';
 import { strings } from '../strings/strings';
@@ -10,6 +10,8 @@ import InputComponent from "../Components/InputComponent";
 import BackgroundWrapper from "../Components/BackgroundWrapper";
 import CustomListViewModal from "../Modals/CustomListViewModal";
 import CustomDropDown from "../Components/CustomDropDown";
+import CalendarInput from "../Components/CalendarInput";
+import { Calendar } from "react-native-calendars";
 
 var styles = BuildStyleOverwrite(Styles);
 const cityTownArray =
@@ -66,6 +68,8 @@ const SignUpNew = () => {
     const [selectedCityTownId, setSelectedCityTownId] = useState('')
     const [selectedState, setSelectedState] = useState(null)
     const [selectedStateId, setSelectedStateId] = useState('')
+    const [selectedDate, setSelectedDate] = useState(''); // Store selected date
+    const [isCalendarVisible, setCalendarVisible] = useState(false); // Calendar visibility state
     const [selectedGenderName, setSelectedGenderName] = useState(null)
     const [selectedGenderId, setSelectedGenderId] = useState('')
     const [selectedBloodGroupName, setSelectedBloodGroupName] = useState(null)
@@ -95,12 +99,22 @@ const SignUpNew = () => {
         setShowDropDowns(false);
     }
 
-
     const onSelectedCityTown = async (item) => {
         setSelectedCityTownName(item.name)
         setSelectedCityTownId(item.id);
         setShowDropDowns(false);
     }
+    // Function to handle date selection
+    const handleDateSelect = (day) => {
+        console.log("Selected Date ----> ", day)
+        setSelectedDate(day.day + "-" + day.month + "-" + day.year); // Set the selected date
+        setCalendarVisible(false); // Hide the calendar modal
+    };
+
+    // Function to handle TextInput focus and show calendar
+    const handleFocus = () => {
+        setCalendarVisible(true); // Show the calendar modal when TextInput is focused
+    };
 
     const onSelectedGender = async (item) => {
         setSelectedGenderName(item.name)
@@ -115,20 +129,33 @@ const SignUpNew = () => {
 
     const navigation = useNavigation();
     const clickOnSignIn = () => {
-        if (emailId == "") {
-            Alert.alert("Enter EmailId")
-        }
-        else if (fullName == "") {
+        Alert.alert("selectedCityTown ---- ", selectedCityTown)
+        if (fullName == "") {
             Alert.alert("Please enter fullName")
-        }
-        else if (mobileNumber == "") {
+        } else if (emailId == "") {
+            Alert.alert("Enter EmailId")
+        } else if (mobileNumber == "") {
             Alert.alert("Please enter mobile Number")
+        } else if (mobileNumber.length < 10) {
+            Alert.alert("Please enter valid mobile Number")
         } else if (emergencyContactNumber == "") {
             Alert.alert("Please enter Emergency Contact Number")
-
+        } else if (emergencyContactNumber.length < 10) {
+            Alert.alert("Please enter valid Emergency Contact Number")
+        }  else if (mobileNumber == emergencyContactNumber) {
+            Alert.alert("Mobile number and emergency contact number should not be same")
+        } else if(selectedCityTown == strings.select || selectedCityTown == '' || selectedCityTown == null) {
+            Alert.alert("Please select City/Town")
+        } else if (selectedState == strings.select) {
+            Alert.alert("Please select State")
+        } else if(selectedDate == ''){
+            Alert.alert("Please select DOB")
+        } else if (selectedGenderName == strings.select) {
+            Alert.alert("Please select gender")
+        } else if(selectedBloodGroupName == strings.select){
+            Alert.alert("Please select blood group")
         } else if (password == "") {
             Alert.alert("Please enter password")
-
         } else if (confirmPassword == "") {
             Alert.alert("Please enter confirm Password")
         } else if (password != confirmPassword) {
@@ -144,6 +171,14 @@ const SignUpNew = () => {
             navigation.navigate('Dashboard')
         }
     }
+
+    const termsConditionsClick = () => {
+        Alert.alert('Success', 'You have clicked on Terms and Conditions text.');
+    };
+    const privacyPolicyClick = () => {
+        Alert.alert('Success', 'You have clicked on Privacy Policy text.');
+    };
+
     return (
         <BackgroundWrapper>
             <View style={[styles['full_screen']]}>
@@ -161,10 +196,10 @@ const SignUpNew = () => {
 
                         <View style={[styles['margin_left_20']]}>
                             <Text style={[styles['font_size_24_bold'], styles['text_color_black'], styles['text_align_left']]}>{strings.welcomemedilog}</Text>
-                            <Text style={[styles['font_size_12_Regular'], styles['text_color_black'], styles['text_align_left'], styles['margin_top_10']]}>{strings.signintoyouraccount}</Text>
+                            <Text style={[styles['font_size_12_Regular'], styles['text_color_black'], styles['text_align_left'], styles['margin_top_10']]}>{strings.createAccount}</Text>
                         </View>
 
-                        <View style={[styles['margin_top_30'], styles['width_90%'], styles['align_self_center']]}>
+                        <View style={[styles['margin_top_30'], styles['width_100%'], styles['align_self_center']]}>
 
                             <CustomTextInput
                                 labelName={strings.fullName}
@@ -204,7 +239,7 @@ const SignUpNew = () => {
                             <CustomTextInput
                                 labelName={strings.mobile_number}
                                 IsRequired={false}
-                                keyboardType='default'
+                                keyboardType='numeric'
                                 placeholder={strings.enter + " " + strings.mobile_number}
                                 value={mobileNumber}
                                 editable={true}
@@ -221,7 +256,7 @@ const SignUpNew = () => {
                             <CustomTextInput
                                 labelName={strings.emergencyContactNumber}
                                 IsRequired={false}
-                                keyboardType='default'
+                                keyboardType='numeric'
                                 placeholder={strings.enter + " " + strings.emergencyContactNumber}
                                 value={emergencyContactNumber}
                                 editable={true}
@@ -254,6 +289,21 @@ const SignUpNew = () => {
                                 onFocus={() => {
                                     changeDropDownData(stateArray, strings.state, selectedState)
                                 }}
+                                onEndEditing={() => {
+
+                                }}
+                            />
+
+
+                            <CalendarInput
+                                labelName={strings.dateofBirth}
+                                value={selectedDate}
+                                placeholder={strings.selectDate}
+                                rightSideImg={require('../assets/images/medilog/ic_calendar.png')}
+                                onFocus={() => {
+                                    handleFocus()
+                                }}
+                                editable={false}
                                 onEndEditing={() => {
 
                                 }}
@@ -320,18 +370,25 @@ const SignUpNew = () => {
 
                             <View style={{
                                 flexDirection: 'row',
-                                marginTop: 10 }}>
-                                    <Image
+                                marginTop: 10,
+                                marginLeft:25
+                            }}>
+                                <Image
                                     source={require('../assets/images/medilog/ic_checkbox.png')}
                                     style={{ width: 20, height: 20 }}
                                 />
-                                <Text style={{ color: '#000000' }}>{strings.bysigningupyouagreetoour} </Text>
-                                <Text style={{ color: '#EB7805' }}>{strings.termsConditions} </Text>
-                                <Text style={{ color: '#000000' }}>{strings.and} </Text>
-                                <Text style={{ color: '#EB7805' }}>{strings.privacyPolicy} </Text>
+                                <View style={{marginLeft:10, flexDirection:'row', alignItems:'flex-start', flexWrap:'wrap',}}>
+                                    <Text style={{ color: '#000000', fontSize:14 }}>{strings.bysigningupyouagreetoour} </Text>
+                                    <TouchableOpacity onPress={() => termsConditionsClick()}>
+                                    <Text style={{ color: '#EB7805', fontSize:14, textDecorationLine:'underline' }}>{strings.termsConditions} </Text>
+                                    </TouchableOpacity>
+                                    <Text style={{ color: '#000000', fontSize:14 }}>{strings.and} </Text>
+                                    <TouchableOpacity onPress={()=> privacyPolicyClick()}>
+                                    <Text style={{ color: '#EB7805', fontSize:14, textDecorationLine:'underline'}}>{strings.privacyPolicy} </Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </View>
-
                         <View style={[styles['margin_top_30']]}>
                             <CustomButtonGradient
                                 title={strings.createAccount}
@@ -339,9 +396,7 @@ const SignUpNew = () => {
                                 onPress={clickOnSignIn}
                             />
                         </View>
-
                     </View>
-
                 </ScrollView>
                 {
                     showDropDowns &&
@@ -355,6 +410,22 @@ const SignUpNew = () => {
                         onSelectedBloodGroup={(item) => onSelectedBloodGroup(item)}
                         closeModal={() => setShowDropDowns(false)} />
                 }
+
+                <Modal visible={isCalendarVisible} transparent={true} animationType="slide">
+                    <View style={[styles['flex_1'], styles['justify_content_center'], styles['alignItems_center'],
+                    { backgroundColor: 'rgba(0,0,0,0.5)' }]}>
+                        <View style={[styles['bg_white'], styles['border_radius_10'], styles['padding_20'], styles['width_90%'],
+                        styles['justify_content_center']]}>
+                            <Calendar
+                                onDayPress={handleDateSelect} // Handle date selection
+                                markedDates={{
+                                    [selectedDate]: { selected: true, marked: true }
+                                }}
+                            />
+                            <Button title="Close" onPress={() => setCalendarVisible(false)} />
+                        </View>
+                    </View>
+                </Modal>
 
             </View>
         </BackgroundWrapper>

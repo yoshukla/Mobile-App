@@ -13,10 +13,7 @@ function CustomTextInput({ labelName, defaultValue, value, placeholder, editable
             <Text
                 style={[styles['font_size_14_Regular'], styles['text_color_black'], styles['margin_left_25']]}>{labelName}</Text>
             <View
-                style={[styles['padding_left_8'], styles['border_radius_6'],
-                styles['width_90%'], styles['border_width_1'],
-                { borderColor: Colors.lightish_grey, alignSelf: 'center', marginTop:5 }
-                ]}>
+                style={[styles['padding_left_8'], styles['border_radius_6'],styles['width_90%'], styles['border_width_1'],{ borderColor: Colors.lightish_grey, alignSelf: 'center', marginTop:5 }]}>
                 <TextInput
                     style={[styles['text_color_black'],
                     styles['font_size_14_Regular'], styles['width_95%'],

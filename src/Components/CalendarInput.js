@@ -8,11 +8,11 @@ import { Colors } from '../assets/Utils/Color';
 var styles = BuildStyleOverwrite(Styles);
 
 
-const CustomDropDown = ({ labelName, value, placeholder, defaultValue, editable, placeholderTextColor, rightSideImg,onFocus, onEndEditing }) => {
+const CalendarInput = ({ labelName, value, placeholder, defaultValue, editable, placeholderTextColor, rightSideImg, onFocus, onEndEditing }) => {
 
     return (
 
-        <View style={[styles['width_100%'], styles['margin_top_10'], styles['margin_bottom_5']]}>
+        <View style={[styles['margin_bottom_5']]}>
             <Text style={[styles['text_color_black'], styles['font_size_14_Regular'], styles['margin_left_25']]}>{labelName}</Text>
             <View style={[styles['flex_direction_row'], styles['margin_top_5'], styles['align_self_center']]}>
                 <TouchableOpacity
@@ -43,7 +43,7 @@ const CustomDropDown = ({ labelName, value, placeholder, defaultValue, editable,
                     ></TextInput>
                     <View style={[styles['align_self_center']]}>
                         <Image
-                            style={[{ width: 14, height: 8 }]}
+                            style={[{ width: 20, height: 20 }]}
                             source={rightSideImg} />
                     </View>
                 </TouchableOpacity>
@@ -56,4 +56,4 @@ const CustomDropDown = ({ labelName, value, placeholder, defaultValue, editable,
 }
 
 
-export default CustomDropDown;
+export default CalendarInput;
