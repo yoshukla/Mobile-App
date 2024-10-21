@@ -5,6 +5,7 @@ import Login from "./src/Login/Login";
 import ForgotPassword from "./src/Login/ForgotPassword";  // test comment
 import Dashboard from "./src/Login/Dashboard";
 import SignUpNew from "./src/Login/SignUpNew";
+import LanguagesList from "./src/Login/LanguagesList";
 
 
 function NavStack() {
@@ -15,6 +16,7 @@ function NavStack() {
       <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
       <Stack.Screen name="Dashboard" component={Dashboard}/>
       <Stack.Screen name="SignUpNew" component={SignUpNew}/>
+      <Stack.Screen name="LanguagesList" component={LanguagesList}/>
     </Stack.Navigator>
   )
 }

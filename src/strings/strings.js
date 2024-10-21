@@ -1,6 +1,6 @@
 
 export const strings = {
-    'app_name': "NSL Vyapara Mitra",
+    'app_name': "MediBank",
     'welcomemedilog': 'Welcome to MediLog',
     'signintoyouraccount': 'Sign in to your account',
     'signIn':'Sign In',
@@ -359,4 +359,7 @@ export const strings = {
     'cityTown' : 'City/Town',
     'bloodGroup' : 'Blood Group',
     'confirmPassword' : 'Confirm Password',
+    'chooseLanguage' : 'Choose Language',
+    'choosepreferredLanguage' : 'Choose your preferred language',
+
 }  

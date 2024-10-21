@@ -33,7 +33,8 @@ const Login = () => {
     }
 
     const navigatetoForgotpwd = () => {
-        navigation.navigate('ForgotPassword')
+        // navigation.navigate('ForgotPassword')
+        navigation.navigate('LanguagesList')
     }
 
 
