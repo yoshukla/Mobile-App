@@ -6,12 +6,16 @@ import ForgotPassword from "./src/Login/ForgotPassword";  // test comment
 import Dashboard from "./src/Login/Dashboard";
 import SignUpNew from "./src/Login/SignUpNew";
 import LanguagesList from "./src/Login/LanguagesList";
+import LandingScreen from "./src/classes/LandingScreen";
+import LanguageChange from "./src/classes/LanguageChange";
 
 
 function NavStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
+      <Stack.Screen name="LandingScreen" component={LandingScreen}/>
+      <Stack.Screen name="LanguageChange" component={LanguageChange}/>
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword}/>
       <Stack.Screen name="Dashboard" component={Dashboard}/>

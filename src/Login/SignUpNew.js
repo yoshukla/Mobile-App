@@ -231,10 +231,13 @@ const SignUpNew = () => {
     }
 
     const termsConditionsClick = () => {
-        Alert.alert('Success', 'You have clicked on Terms and Conditions text.');
+        // Alert.alert('Success', 'You have clicked on Terms and Conditions text.');
+        navigation.navigate("LanguageChange")
     };
     const privacyPolicyClick = () => {
-        Alert.alert('Success', 'You have clicked on Privacy Policy text.');
+        // Alert.alert('Success', 'You have clicked on Privacy Policy text.');
+        
+        navigation.navigate("LandingScreen")
     };
 
     return (
