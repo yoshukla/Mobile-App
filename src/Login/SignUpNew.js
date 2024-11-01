@@ -12,11 +12,11 @@ import CustomListViewModal from "../Modals/CustomListViewModal";
 import CustomDropDown from "../Components/CustomDropDown";
 import CalendarInput from "../Components/CalendarInput";
 import { Calendar } from "react-native-calendars";
-import CustomPopup from "../Modals/CustomPopup";
 import CustomAlert from "../Components/CustomAlert";
 import { requestCameraAndStoragePermissions } from "../assets/Utils/permissions";
 import { saveImageToFolder } from "../assets/Utils/Utility";
 import ImagePicker from 'react-native-image-crop-picker';
+import CustomPopupCamGalleryDoc from "../Modals/CustomPopupCamGalleryDoc";
 
 var styles = BuildStyleOverwrite(Styles);
 const cityTownArray =
@@ -115,30 +115,47 @@ const SignUpNew = () => {
         if (!permissionsGranted) {
             // Alert.alert('Permissions granted');
             // Proceed with camera or storage access
-            const image = await ImagePicker.openPicker({
-                width: 300,
-                height: 400,
-                cropping: true
-            });
- 
-            // const imageCam = await ImagePicker.openCamera({
-            //     width: 300,
-            //     height: 400,
-            //     cropping: true,
-            // });
- 
-            if (image != null) {
-                console.log('Captured Image:', image);
- 
-                // Save the image to a specific folder
-                const savedImagePath = await saveImageToFolder(image.path, 'Medilog');
- 
-                Alert.alert('Success', `Image saved at: ${savedImagePath}`);
-            }
+            setPopupVisible(true)
         } else {
             Alert.alert('Permissions denied');
         }
     };
+
+    const openCamera = async () => {
+        try {
+            const image = await ImagePicker.openCamera({
+                width: 300,
+                height: 400,
+                cropping: true,
+            });
+
+            if (image != null) {
+                console.log('Captured Image:', image);
+                // Save the image to a specific folder
+                const savedImagePath = await saveImageToFolder(image.path, 'Medilog');
+
+                Alert.alert('Success', `Image saved at: ${savedImagePath}`);
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const openGallery = async () => {
+        const image = await ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+        });
+        if (image != null) {
+            console.log('Captured Image:', image);
+
+            // Save the image to a specific folder
+            const savedImagePath = await saveImageToFolder(image.path, 'Medilog');
+
+            Alert.alert('Success', `Image saved at: ${savedImagePath}`);
+        }
+    }
 
     const changeDropDownData = (dropDownData, type, selectedItem) => {
         if (dropDownData.length == 0) {
@@ -188,46 +205,47 @@ const SignUpNew = () => {
 
     const navigation = useNavigation();
     const clickOnSignIn = () => {
-        if (fullName == "") {
-            showAlertWithMessage(strings.alert, true, true, "Please enter fullName", false, true, strings.ok, strings.cancel)
-        } else if (emailId == "") {
-            Alert.alert("Enter EmailId")
-        } else if (mobileNumber == "") {
-            Alert.alert("Please enter mobile Number")
-        } else if (mobileNumber.length < 10) {
-            Alert.alert("Please enter valid mobile Number")
-        } else if (emergencyContactNumber == "") {
-            Alert.alert("Please enter Emergency Contact Number")
-        } else if (emergencyContactNumber.length < 10) {
-            Alert.alert("Please enter valid Emergency Contact Number")
-        } else if (mobileNumber == emergencyContactNumber) {
-            Alert.alert("Mobile number and emergency contact number should not be same")
-        } else if (selectedCityTown == strings.select || selectedCityTown == '' || selectedCityTown == null) {
-            Alert.alert("Please select City/Town")
-        } else if (selectedState == strings.select) {
-            Alert.alert("Please select State")
-        } else if (selectedDate == '') {
-            Alert.alert("Please select DOB")
-        } else if (selectedGenderName == strings.select) {
-            Alert.alert("Please select gender")
-        } else if (selectedBloodGroupName == strings.select) {
-            Alert.alert("Please select blood group")
-        } else if (password == "") {
-            Alert.alert("Please enter password")
-        } else if (confirmPassword == "") {
-            Alert.alert("Please enter confirm Password")
-        } else if (password != confirmPassword) {
-            Alert.alert("Password does not match, please enter correct password")
-        }
-        else {
-            setEmailId(emailId)
-            setFullName(fullName)
-            setMobileNumber(mobileNumber)
-            setEmergencyContactNumber(emergencyContactNumber)
-            setPassword(password)
-            setConfirmPassword(confirmPassword)
-            navigation.navigate('Dashboard')
-        }
+        navigation.navigate('OTPInputScreen')
+        // if (fullName == "") {
+        //     showAlertWithMessage(strings.alert, true, true, "Please enter fullName", false, true, strings.ok, strings.cancel)
+        // } else if (emailId == "") {
+        //     Alert.alert("Enter EmailId")
+        // } else if (mobileNumber == "") {
+        //     Alert.alert("Please enter mobile Number")
+        // } else if (mobileNumber.length < 10) {
+        //     Alert.alert("Please enter valid mobile Number")
+        // } else if (emergencyContactNumber == "") {
+        //     Alert.alert("Please enter Emergency Contact Number")
+        // } else if (emergencyContactNumber.length < 10) {
+        //     Alert.alert("Please enter valid Emergency Contact Number")
+        // } else if (mobileNumber == emergencyContactNumber) {
+        //     Alert.alert("Mobile number and emergency contact number should not be same")
+        // } else if (selectedCityTown == strings.select || selectedCityTown == '' || selectedCityTown == null) {
+        //     Alert.alert("Please select City/Town")
+        // } else if (selectedState == strings.select) {
+        //     Alert.alert("Please select State")
+        // } else if (selectedDate == '') {
+        //     Alert.alert("Please select DOB")
+        // } else if (selectedGenderName == strings.select) {
+        //     Alert.alert("Please select gender")
+        // } else if (selectedBloodGroupName == strings.select) {
+        //     Alert.alert("Please select blood group")
+        // } else if (password == "") {
+        //     Alert.alert("Please enter password")
+        // } else if (confirmPassword == "") {
+        //     Alert.alert("Please enter confirm Password")
+        // } else if (password != confirmPassword) {
+        //     Alert.alert("Password does not match, please enter correct password")
+        // }
+        // else {
+        //     setEmailId(emailId)
+        //     setFullName(fullName)
+        //     setMobileNumber(mobileNumber)
+        //     setEmergencyContactNumber(emergencyContactNumber)
+        //     setPassword(password)
+        //     setConfirmPassword(confirmPassword)
+        //     navigation.navigate('Dashboard')
+        // }
     }
 
     const termsConditionsClick = () => {
@@ -236,7 +254,7 @@ const SignUpNew = () => {
     };
     const privacyPolicyClick = () => {
         // Alert.alert('Success', 'You have clicked on Privacy Policy text.');
-        
+
         navigation.navigate("LandingScreen")
     };
 
@@ -260,7 +278,25 @@ const SignUpNew = () => {
                             <Text style={[styles['font_size_12_Regular'], styles['text_color_black'], styles['text_align_left'], styles['margin_top_10']]}>{strings.createAccount}</Text>
                         </View>
 
-                        <View style={[styles['margin_top_30'], styles['width_100%'], styles['align_self_center']]}>
+                        {/* Profile section */}
+                        <View style={[styles['margin_left_20'], styles['margin_right_20'], styles['border_radius_6'], styles['width_90%'], styles['height_150'], styles['centerItems'], styles['border_width_1'], { borderColor: '#F3F2FF', backgroundColor: '#E5E3FF', marginTop: 5 }]}>
+                            <TouchableOpacity style={[styles['width_height_80'], styles['centerItems'], { borderRadius: 50, borderColor: '#F3F2FF', backgroundColor: 'white', marginTop: 5 }]} onPress={() => handlePermissions()}>
+                                <Image
+                                    source={require('../assets/images/medilog/ic_profile.png')}
+                                    style={{ width: 20, height: 20, alignSelf: 'center' }}
+                                />
+                            </TouchableOpacity>
+
+                            <View style={[styles['centerItems'], styles['margin_top_8'], { flexDirection: 'row' }]}>
+                                <Text style={[styles['text_color_black'], styles['font_size_13_semibold'], styles['margin_right_10']]}>{strings.addPhoto}</Text>
+                                <Image
+                                    source={require('../assets/images/medilog/ic_info.png')}
+                                    style={{ width: 15, height: 15, alignSelf: 'center' }}
+                                />
+                            </View>
+                        </View>
+
+                        <View style={[styles['margin_top_10'], styles['width_100%'], styles['align_self_center']]}>
 
                             <CustomTextInput
                                 labelName={strings.fullName}
@@ -457,13 +493,13 @@ const SignUpNew = () => {
                                 onPress={clickOnSignIn}
                             />
                         </View>
-                        <Button
-                            title="Request Camera and Storage Permissions"
+                        {/* <Button
+                            title="show bottom popup"
                             onPress={() => {
                                 setPopupVisible(true)
                                 // handlePermissions()
                             }}
-                        />
+                        /> */}
                     </View>
                 </ScrollView>
                 {
@@ -495,46 +531,41 @@ const SignUpNew = () => {
                         noButtonText={showAlertNoButtonText} />
                 )}
 
-                <CustomPopup
+                <CustomPopupCamGalleryDoc
                     visible={isPopupVisible}
                     onClose={""}
                     onSubmit={""}
                     showCenter={false}
+                    style={[styles['flex_direction_row']]}
                 >
                     {/* Pass dynamic content as children */}
-                    <TouchableOpacity
-                        style={[styles['flex_direction_row'], { width: '100%', alignItems: 'center',  }]}>
-                        <Image
-                            source={require('../assets/images/medilog/ic_calendar.png')}
-                            style={{ width: 20, height: 20 }}
-                        />
-                        <Text style={{color:'black'}}>Hospital Reports</Text>
+                    <TouchableOpacity onPress={() => openCamera()}
+                        style={[styles['flex_direction_column'], { width: '50%', alignItems: 'center', }]}>
+                        <View style={[styles['border_radius_6'], styles['width_90%'], styles['height_80'], styles['centerItems'], styles['border_width_1'], { borderColor: '#ecf0f1', backgroundColor: '#ecf0f1', marginTop: 5 }]}>
+                            <Image
+                                source={require('../assets/images/medilog/ic_calendar.png')}
+                                style={{ padding: 20, height: 30, width: 30 }}
+                            />
+                        </View>
+                        <Text style={{ color: 'black', marginTop: 10 }}>{strings.camera}</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        style={[styles['flex_direction_row'], { width: '100%', marginTop: 25, alignItems: 'center' }]}
+                        style={[styles['flex_direction_column'], { width: '50%', alignItems: 'center' }]}
                         onPress={() => {
-                            Alert.alert('Reports')
+                            // Alert.alert('Reports')
+                            openGallery()
                         }}
                     >
-
-                        <Image
-                            source={require('../assets/images/medilog/ic_calendar.png')}
-                            style={{ width: 20, height: 20 }}
-                        />
-                        <Text>Lab Reports</Text>
+                        <View style={[styles['border_radius_6'], styles['width_90%'], styles['height_80'], styles['centerItems'], styles['border_width_1'], { borderColor: '#ecf0f1', backgroundColor: '#ecf0f1', marginTop: 5 }]}>
+                            <Image
+                                source={require('../assets/images/medilog/ic_calendar.png')}
+                                style={{ padding: 20, height: 30, width: 30 }}
+                            />
+                        </View>
+                        <Text style={{ color: 'black', marginTop: 10, }}>{strings.gallery}</Text>
                     </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={[styles['flex_direction_row'], { width: '100%', marginTop: 30, alignItems: 'center' }]}>
-
-                        <Image
-                            source={require('../assets/images/medilog/ic_calendar.png')}
-                            style={{ width: 20, height: 20 }}
-                        />
-                        <Text>Appointments</Text>
-                    </TouchableOpacity>
-                </CustomPopup>
+                </CustomPopupCamGalleryDoc>
 
                 <Modal visible={isCalendarVisible} transparent={true} animationType="slide">
                     <View style={[styles['flex_1'], styles['justify_content_center'], styles['alignItems_center'],
@@ -551,7 +582,6 @@ const SignUpNew = () => {
                         </View>
                     </View>
                 </Modal>
-
             </View>
         </BackgroundWrapper>
     )

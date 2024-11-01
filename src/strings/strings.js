@@ -361,5 +361,6 @@ export const strings = {
     'confirmPassword' : 'Confirm Password',
     'chooseLanguage' : 'Choose Language',
     'choosepreferredLanguage' : 'Choose your preferred language',
+    'addPhoto' : 'Add Photo',
 
 }  

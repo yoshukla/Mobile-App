@@ -43,7 +43,7 @@ const HReport = () => {
     const handleFloatingButtonPress = () => {
         // Handle button press
         console.log('Floating button pressed!');
-        navigation.navigate('UserProfile')
+        navigation.navigate('Profile')
         
     };
 

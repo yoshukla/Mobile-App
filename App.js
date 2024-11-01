@@ -5,7 +5,6 @@ import Login from "./src/Login/Login";
 import ForgotPassword from "./src/Login/ForgotPassword";  // test comment
 import Dashboard from "./src/Login/Dashboard";
 import SignUpNew from "./src/Login/SignUpNew";
-import LanguagesList from "./src/Login/LanguagesList";
 import LandingScreen from "./src/classes/LandingScreen";
 import LanguageChange from "./src/classes/LanguageChange";
 import Records from "./src/classes/Records";
@@ -50,7 +49,8 @@ function BottomNavigator() {
       <Tab.Screen name="Records" component={Records} />
       <Tab.Screen name="NearBy" component={NearBy} />
       <Tab.Screen name="Home" component={Dashboard} />
-      <Tab.Screen name="Profile" component={Profile} />
+      {/* <Tab.Screen name="Profile" component={Profile} /> */}
+      <Tab.Screen name="Profile" component={HReport} />
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );
@@ -67,11 +67,10 @@ function NavStack() {
       <Stack.Screen name="OTPInputScreen" component={OTPInputScreen}/>
       <Stack.Screen name="Dashboard" component={BottomNavigator}/>
       <Stack.Screen name="SignUpNew" component={SignUpNew}/>
-      <Stack.Screen name="LanguagesList" component={LanguagesList}/>
-      <Stack.Screen name="Records" component={Records}/>
+      {/* <Stack.Screen name="Records" component={Records}/>
       <Stack.Screen name="NearBy" component={NearBy}/>
       <Stack.Screen name="Profile" component={Profile}/>
-      <Stack.Screen name="Settings" component={Settings}/>
+      <Stack.Screen name="Settings" component={Settings}/> */}
       <Stack.Screen name="HReport" component={HReport}/>
     </Stack.Navigator>
   )

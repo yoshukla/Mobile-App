@@ -12,7 +12,8 @@ const SplashScreen = () => {
             navigation.reset({
                 index: 0,
                 routes: [{
-                    name: 'Login'
+                    // name: 'Login'
+                    name: 'LandingScreen'
                 }]
             })
         }, 3000);

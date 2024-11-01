@@ -1,7 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
 
 const OTPInputScreen = () => {
+  const navigation = useNavigation();
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [timer, setTimer] = useState(150); // 2 minutes 30 seconds
   const inputRefs = Array.from({ length: 6 }, () => useRef());
@@ -45,6 +47,10 @@ const OTPInputScreen = () => {
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
 
+  const goToDashboard = () => {
+    navigation.navigate("Dashboard")
+};
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Confirm your Account</Text>
@@ -65,7 +71,7 @@ const OTPInputScreen = () => {
       </View>
       <Text style={styles.timer}>{formatTime()}</Text>
       <TouchableOpacity style={styles.submitButton}>
-        <Text style={styles.submitButtonText}>Submit</Text>
+        <Text style={styles.submitButtonText} onPress={()=> goToDashboard()}>Submit</Text>
       </TouchableOpacity>
     </View>
   );

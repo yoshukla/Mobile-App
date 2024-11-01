@@ -79,7 +79,7 @@ const LanguageChange = () => {
                             btnWidth={'90%'}
                             btnHeight={45}
                             onPress={() => {
-                                    navigation.navigate('LandingScreen')
+                                    navigation.navigate('Login')
                             }}
                         />
 

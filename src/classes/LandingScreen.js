@@ -10,10 +10,26 @@ import {
     Dimensions,
 } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+
 
 const { width } = Dimensions.get('window');
+
+
+
 // create a component
 const LandingScreen = () => {
+    const navigation = useNavigation();
+    const navigateToLoginScreen = () => {
+        // Alert.alert('Success', 'You have clicked on Terms and Conditions text.');
+        // navigation.navigate("Login")
+        navigation.navigate("LanguageChange")
+    };
+    const navigateToSignUpScreen = () => {
+        // Alert.alert('Success', 'You have clicked on Privacy Policy text.');
+        // navigation.navigate("SignUpNew")
+        navigation.navigate("LanguageChange")
+    };
     return (
         <ImageBackground
             source={require('../assets/images/medilog/onboard_ic.png')} // Replace with your background image path
@@ -23,7 +39,7 @@ const LandingScreen = () => {
             {/* Logo */}
             <View style={styles.logoContainer}>
                 <Image
-                    source={require('../assets/images/medilog/logo_medilog.png')} // Replace with your logo image path
+                    source={require('../assets/images/medilog/ic_medibank_logo.png')} // Replace with your logo image path
                     style={styles.logo}
                     resizeMode="contain"
                 />
@@ -32,7 +48,7 @@ const LandingScreen = () => {
             {/* Illustration */}
             <View style={styles.illustrationContainer}>
                 <Image
-                    source={require('../assets/images/medilog/illustration.png')} // Replace with your illustration path
+                    source={require('../assets/images/medilog/ic_doctor_calendar_watch.png')} // Replace with your illustration path
                     style={styles.illustration}
                     resizeMode="contain"
                 />
@@ -46,12 +62,12 @@ const LandingScreen = () => {
 
             {/* Buttons */}
             <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={()=> navigateToLoginScreen()}>
                     <Text style={styles.buttonText}>Sign In</Text>
                     {/* <Icon name="arrow-forward-circle-outline" size={24} color="#4B0082" /> */}
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button}  onPress={()=> navigateToSignUpScreen()}>
                     <Text style={styles.buttonText}>New User</Text>
                     {/* <Icon name="arrow-forward-circle-outline" size={24} color="#4B0082" /> */}
                 </TouchableOpacity>
