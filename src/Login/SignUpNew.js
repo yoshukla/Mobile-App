@@ -295,7 +295,6 @@ const SignUpNew = () => {
                                 />
                             </View>
                         </View>
-
                         <View style={[styles['margin_top_10'], styles['width_100%'], styles['align_self_center']]}>
 
                             <CustomTextInput
@@ -434,7 +433,8 @@ const SignUpNew = () => {
                                 IsRequired={false}
                                 keyboardType='default'
                                 placeholder={strings.enter + " " + strings.password}
-                                value={fullName}
+                                value={password}
+                                secureTextEntry={true}
                                 editable={true}
                                 onFocus={() => {
                                 }}
@@ -452,7 +452,8 @@ const SignUpNew = () => {
                                 IsRequired={false}
                                 keyboardType='default'
                                 placeholder={strings.enter + " " + strings.confirmPassword}
-                                value={fullName}
+                                value={confirmPassword}
+                                secureTextEntry={true}
                                 editable={true}
                                 onFocus={() => {
                                 }}

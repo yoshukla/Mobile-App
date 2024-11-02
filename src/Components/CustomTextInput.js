@@ -7,7 +7,7 @@ import { Colors } from '../assets/Utils/Color';
 
 var styles = BuildStyleOverwrite(Styles);
 
-function CustomTextInput({ labelName, defaultValue, value, placeholder, editable, contextMenuHidden, maxLength, onFocus, onChangeText, onEndEditing, keyboardType, textFiledWidth, leftSpace, autoCapitalize }) {
+function CustomTextInput({ labelName, defaultValue, value,secureTextEntry, placeholder, editable, contextMenuHidden, maxLength, onFocus, onChangeText, onEndEditing, keyboardType, textFiledWidth, leftSpace, autoCapitalize }) {
     return (
         <View style={[styles['width_100%'], styles['margin_top_10']]}>
             <Text
@@ -20,6 +20,7 @@ function CustomTextInput({ labelName, defaultValue, value, placeholder, editable
                     { padding: 0, paddingLeft: 0, height: 40 }]}
                     defaultValue={defaultValue}
                     value={value}
+                    secureTextEntry={secureTextEntry}
                     keyboardType={keyboardType}
                     placeholder={placeholder}
                     placeholderTextColor={Colors.darkgrey}

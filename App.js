@@ -20,6 +20,7 @@ import OTPInputScreen from "./src/classes/OTPInputScreen";
 function BottomNavigator() {
   return (
     <Tab.Navigator
+    initialRouteName="Home"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused }) => {
           let iconUrl;
@@ -48,7 +49,7 @@ function BottomNavigator() {
     >
       <Tab.Screen name="Records" component={Records} />
       <Tab.Screen name="NearBy" component={NearBy} />
-      <Tab.Screen name="Home" component={Dashboard} />
+      <Tab.Screen name="Home" component={Dashboard}/>
       {/* <Tab.Screen name="Profile" component={Profile} /> */}
       <Tab.Screen name="Profile" component={HReport} />
       <Tab.Screen name="Settings" component={Settings} />
