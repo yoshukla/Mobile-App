@@ -82,6 +82,7 @@ const LanguageChange = () => {
                                     navigation.navigate('Login')
                             }}
                         />
+                        <View style={[styles['margin_bottom_20']]}></View>
 
                     </View>
 

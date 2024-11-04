@@ -77,6 +77,8 @@ const SignUpNew = () => {
     const [showAlertNoButtonText, setShowAlertNoButtonText] = useState(false)
     const [isPopupVisible, setPopupVisible] = useState(false);
 
+    const [imageUri, setImageUri] = useState(null); // State to hold image URI
+    const [isError, setIsError] = useState(false); // State to handle errors
     const [emailId, setEmailId] = useState('')
     const [fullName, setFullName] = useState('')
     const [mobileNumber, setMobileNumber] = useState('')
@@ -122,6 +124,7 @@ const SignUpNew = () => {
     };
 
     const openCamera = async () => {
+        setPopupVisible(false)
         try {
             const image = await ImagePicker.openCamera({
                 width: 300,
@@ -134,7 +137,9 @@ const SignUpNew = () => {
                 // Save the image to a specific folder
                 const savedImagePath = await saveImageToFolder(image.path, 'Medilog');
 
-                Alert.alert('Success', `Image saved at: ${savedImagePath}`);
+                // Alert.alert('Success', `Image saved at: ${savedImagePath}`);
+                setImageUri(savedImagePath); // Set the captured image URI
+                setIsError(false); // Reset error state when a new image is captured
             }
         } catch (error) {
             console.error(error)
@@ -142,6 +147,7 @@ const SignUpNew = () => {
     }
 
     const openGallery = async () => {
+        setPopupVisible(false)
         const image = await ImagePicker.openPicker({
             width: 300,
             height: 400,
@@ -153,7 +159,9 @@ const SignUpNew = () => {
             // Save the image to a specific folder
             const savedImagePath = await saveImageToFolder(image.path, 'Medilog');
 
-            Alert.alert('Success', `Image saved at: ${savedImagePath}`);
+            // Alert.alert('Success', `Image saved at: ${savedImagePath}`);
+            setImageUri(savedImagePath); // Set the captured image URI
+            setIsError(false); // Reset error state when a new image is captured
         }
     }
 
@@ -279,24 +287,42 @@ const SignUpNew = () => {
                         </View>
 
                         {/* Profile section */}
-                        <View style={[styles['margin_left_20'], styles['margin_right_20'], styles['border_radius_6'], styles['width_90%'], styles['height_150'], styles['centerItems'], styles['border_width_1'], { borderColor: '#F3F2FF', backgroundColor: '#E5E3FF', marginTop: 5 }]}>
-                            <TouchableOpacity style={[styles['width_height_80'], styles['centerItems'], { borderRadius: 50, borderColor: '#F3F2FF', backgroundColor: 'white', marginTop: 5 }]} onPress={() => handlePermissions()}>
-                                <Image
-                                    source={require('../assets/images/medilog/ic_profile.png')}
-                                    style={{ width: 20, height: 20, alignSelf: 'center' }}
-                                />
-                            </TouchableOpacity>
+                        {imageUri == null &&
+                            <View style={[styles['margin_left_20'], styles['margin_right_20'], styles['border_radius_6'], styles['width_90%'], styles['height_150'], styles['centerItems'], styles['border_width_1'], { borderColor: '#F3F2FF', backgroundColor: '#E5E3FF', marginTop: 5 }]}>
 
-                            <View style={[styles['centerItems'], styles['margin_top_8'], { flexDirection: 'row' }]}>
-                                <Text style={[styles['text_color_black'], styles['font_size_13_semibold'], styles['margin_right_10']]}>{strings.addPhoto}</Text>
+                                <TouchableOpacity style={[styles['width_height_80'], styles['centerItems'], { borderRadius: 50, borderColor: '#F3F2FF', backgroundColor: 'white', marginTop: 5 }]} onPress={() => handlePermissions()}>
+                                    <Image
+                                        source={require('../assets/images/medilog/ic_profile.png')}
+                                        style={{ width: 20, height: 20, alignSelf: 'center' }}
+                                    />
+                                </TouchableOpacity>
+
+                                <View style={[styles['centerItems'], styles['margin_top_8'], { flexDirection: 'row' }]}>
+                                    <Text style={[styles['text_color_black'], styles['font_size_13_semibold'], styles['margin_right_10']]}>{strings.addPhoto}</Text>
+                                    <Image
+                                        source={require('../assets/images/medilog/ic_info.png')}
+                                        style={{ width: 15, height: 15, alignSelf: 'center' }}
+                                    />
+                                </View>
+                            </View>
+                        }
+
+                        {imageUri != null &&
+                            <View style={[styles['margin_left_20'], styles['margin_right_20'], styles['border_radius_6'], styles['width_90%'], styles['height_150'], styles['centerItems'], styles['border_width_1'], { borderColor: '#F3F2FF', backgroundColor: '#E5E3FF', marginTop: 5 }]}>
+                                {/* Display the image or a error if there's an error */}
                                 <Image
-                                    source={require('../assets/images/medilog/ic_info.png')}
-                                    style={{ width: 15, height: 15, alignSelf: 'center' }}
+                                    source={
+                                        isError || !imageUri
+                                            ? require('../assets/images/medilog/ic_profile.png') // Fallback image from project assets
+                                            : { uri: imageUri } // Captured or selected image URI
+                                    }
+                                    style={{ width: 200, height: 80, resizeMode: 'cover' }}
+                                    onError={() => setIsError(true)} // Handle image loading error
                                 />
                             </View>
-                        </View>
-                        <View style={[styles['margin_top_10'], styles['width_100%'], styles['align_self_center']]}>
+                        }
 
+                        <View style={[styles['margin_top_10'], styles['width_100%'], styles['align_self_center']]}>
                             <CustomTextInput
                                 labelName={strings.fullName}
                                 IsRequired={false}
@@ -487,7 +513,7 @@ const SignUpNew = () => {
                                 </View>
                             </View>
                         </View>
-                        <View style={[styles['margin_top_30']]}>
+                        <View style={[styles['margin_top_30'],]}>
                             <CustomButtonGradient
                                 title={strings.createAccount}
                                 btnWidth={'90%'}
