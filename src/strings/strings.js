@@ -132,6 +132,7 @@ export const strings = {
     'documentUpload': 'Document Upload',
     'upload': 'Upload',
     "upload_document": "Upload Document",
+    "upload_documents": "Upload Documents",
     'no_document_added': 'No Document is added',
     'youarealredayRegistered': 'You are already registered please login with registered mobile number',
     'village': 'Village',
@@ -362,5 +363,9 @@ export const strings = {
     'chooseLanguage' : 'Choose Language',
     'choosepreferredLanguage' : 'Choose your preferred language',
     'addPhoto' : 'Add Photo',
+    'hospitalClinicName' : 'Hospital/Clinic Name',
+    'doctorName' : 'Doctor Name',
+    'procedure' : 'Procedure',
+    'patientName' : 'Patient Name',
 
 }  

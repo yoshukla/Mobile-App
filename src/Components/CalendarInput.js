@@ -12,7 +12,7 @@ const CalendarInput = ({ labelName, value, placeholder, defaultValue, editable, 
 
     return (
 
-        <View style={[styles['margin_bottom_5']]}>
+        <View style={[styles['margin_bottom_5'], styles['margin_top_10']]}>
             <Text style={[styles['text_color_black'], styles['font_size_14_Regular'], styles['margin_left_25']]}>{labelName}</Text>
             <View style={[styles['flex_direction_row'], styles['margin_top_5'], styles['align_self_center']]}>
                 <TouchableOpacity

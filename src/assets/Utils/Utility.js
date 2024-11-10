@@ -30,7 +30,8 @@ export const saveImageToFolder = async (imagePath, folderName = 'MyImages') => {
     await RNFS.moveFile(imagePath, filePath);
 
     console.log('Image saved at:', filePath);
-    return filePath;  // Return the new file path for further usage
+    return "file://"+filePath;  // Return the new file path for further usage
+    // return filePath;  // Return the new file path for further usage
   } catch (error) {
     console.error('Failed to save image:', error);
     Alert.alert('Error', 'Failed to save image.');

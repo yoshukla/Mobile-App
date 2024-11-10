@@ -13,9 +13,10 @@ import Profile from "./src/classes/Profile";
 import Settings from "./src/classes/Settings";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image } from "react-native";
-import HReport from "./src/classes/HReport";
+import HospitalReports from "./src/classes/HospitalReports";
 import OTPInputScreen from "./src/classes/OTPInputScreen";
 import UserProfile from "./src/classes/UserProfile";
+import HospitalReportsForm from "./src/classes/HospitalReportsForm";
 
 
 function BottomNavigator() {
@@ -52,8 +53,8 @@ function BottomNavigator() {
       <Tab.Screen name="NearBy" component={NearBy} />
       {/* <Tab.Screen name="Home" component={Dashboard}/> */}
       <Tab.Screen name="Home" component={UserProfile}/>
-      {/* <Tab.Screen name="Profile" component={Profile} /> */}
-      <Tab.Screen name="Profile" component={HReport} />
+      <Tab.Screen name="Profile" component={Profile} />
+      {/* <Tab.Screen name="Profile" component={HospitalReports} /> */}
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );
@@ -74,7 +75,8 @@ function NavStack() {
       <Stack.Screen name="NearBy" component={NearBy}/>
       <Stack.Screen name="Profile" component={Profile}/>
       <Stack.Screen name="Settings" component={Settings}/> */}
-      <Stack.Screen name="HReport" component={HReport}/>
+      <Stack.Screen name="HospitalReports" component={HospitalReports}/>
+      <Stack.Screen name="HospitalReportsForm" component={HospitalReportsForm}/>
     </Stack.Navigator>
   )
 }

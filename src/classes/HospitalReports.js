@@ -36,15 +36,14 @@ const ListItem = ({ item }) => (
     </View>
 );
 
-const HReport = () => {
+const HospitalReports = () => {
     const [search, setSearch] = useState('');
     const [filteredData, setFilteredData] = useState(data);
     const navigation = useNavigation();
     const handleFloatingButtonPress = () => {
         // Handle button press
         console.log('Floating button pressed!');
-        navigation.navigate('Profile')
-        
+        navigation.navigate('HospitalReportsForm')
     };
 
     const handleSearch = (text) => {
@@ -184,4 +183,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default HReport;
+export default HospitalReports;

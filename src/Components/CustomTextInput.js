@@ -9,7 +9,7 @@ var styles = BuildStyleOverwrite(Styles);
 
 function CustomTextInput({ labelName, defaultValue, value,secureTextEntry, placeholder, editable, contextMenuHidden, maxLength, onFocus, onChangeText, onEndEditing, keyboardType, textFiledWidth, leftSpace, autoCapitalize }) {
     return (
-        <View style={[styles['width_100%'], styles['margin_top_10']]}>
+        <View style={[styles['width_100%'], styles['margin_top_10'],]}>
             <Text
                 style={[styles['font_size_14_Regular'], styles['text_color_black'], styles['margin_left_25']]}>{labelName}</Text>
             <View

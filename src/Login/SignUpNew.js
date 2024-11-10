@@ -501,7 +501,7 @@ const SignUpNew = () => {
                                     source={require('../assets/images/medilog/ic_checkbox.png')}
                                     style={{ width: 20, height: 20 }}
                                 />
-                                <View style={{ marginLeft: 10, flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', }}>
+                                <View style={{ marginLeft: 10, marginRight:10, flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', }}>
                                     <Text style={{ color: '#000000', fontSize: 14 }}>{strings.bysigningupyouagreetoour} </Text>
                                     <TouchableOpacity onPress={() => termsConditionsClick()}>
                                         <Text style={{ color: '#EB7805', fontSize: 14, textDecorationLine: 'underline' }}>{strings.termsConditions} </Text>
