@@ -34,7 +34,7 @@ const patientNameArray =
     }];
 
 
-const HospitalReportsForm = () => {
+const AppointmentsForm = () => {
 
     const [showAlert, setShowAlert] = useState(false)
     const [alertTitle, setAlertTitle] = useState('');
@@ -53,7 +53,7 @@ const HospitalReportsForm = () => {
     const [hospitalClinicName, setHospitalClinicName] = useState('')
     const [selectedDate, setSelectedDate] = useState(''); // Store selected date
     const [doctorName, setDoctorName] = useState('')
-    const [procedure, setProcedure] = useState('')
+    const [chiefCompliant, setChiefCompliant] = useState('')
     const [remarks, setRemarks] = useState('')
 
     const [selectedPatientName, setSelectedPatientName] = useState(null)
@@ -75,7 +75,6 @@ const HospitalReportsForm = () => {
         setShowAlertNoButtonText(noText);
         setShowAlert(true)
     }
-    
     const handleCancelAlert = () => {
         setShowAlert(false)
     }
@@ -164,24 +163,24 @@ const HospitalReportsForm = () => {
 
     const navigation = useNavigation();
     const clickOnSubmit = () => {
-        if (hospitalClinicName == "") {
-            showAlertWithMessage(strings.alert, true, true, "Please enter Hospital/Clinic Name", false, true, strings.ok, strings.cancel)
+        if (doctorName == "") {
+            showAlertWithMessage(strings.alert, true, true, "Please enter Doctor Name", false, true, strings.ok, strings.cancel)
         } else if (selectedDate == '') {
             showAlertWithMessage(strings.alert, true, true, "Please select Date", false, true, strings.ok, strings.cancel)
-        } else if (doctorName == "") {
-            showAlertWithMessage(strings.alert, true, true, "Please enter Doctor Name", false, true, strings.ok, strings.cancel)
-        } else if (procedure == "") {
-            showAlertWithMessage(strings.alert, true, true, "Please enter procedure", false, true, strings.ok, strings.cancel)
+        } else if (hospitalClinicName == "") {
+            showAlertWithMessage(strings.alert, true, true, "Please enter Hospital/Clinic Name", false, true, strings.ok, strings.cancel)
+        } else if (chiefCompliant == "") {
+            showAlertWithMessage(strings.alert, true, true, "Please enter chief compliant", false, true, strings.ok, strings.cancel)
         } else if (selectedPatientName == strings.select || selectedPatientName == '' || selectedPatientName == null) {
             showAlertWithMessage(strings.alert, true, true, "Please select Patient Name", false, true, strings.ok, strings.cancel)
         } else if (remarks == "") {
             showAlertWithMessage(strings.alert, true, true, "Please enter remarks", false, true, strings.ok, strings.cancel)
         } else {
-            setHospitalClinicName(hospitalClinicName)
             setDoctorName(doctorName)
-            setProcedure(procedure)
+            setHospitalClinicName(hospitalClinicName)
+            setChiefCompliant(chiefCompliant)
             setRemarks(remarks)
-            navigation.navigate('HospitalReports')  // make api call and go back, or finish this screen
+            navigation.navigate('AppointmentsList')  // make api call and go back, or finish this screen
         }
     }
 
@@ -196,18 +195,19 @@ const HospitalReportsForm = () => {
                     <View style={[{ marginTop: Dimensions.get('window').height / 12 }]}>
 
                         <View style={[styles['margin_top_10'], styles['width_100%'], styles['align_self_center']]}>
-                            <CustomTextInput
-                                labelName={strings.hospitalClinicName}
+                            
+                        <CustomTextInput
+                                labelName={strings.doctorName}
                                 IsRequired={false}
                                 keyboardType='default'
-                                placeholder={strings.enter + " " + strings.hospitalClinicName}
-                                value={hospitalClinicName}
+                                placeholder={strings.enter + " " + strings.doctorName}
+                                value={doctorName}
                                 editable={true}
                                 onFocus={() => {
                                 }}
                                 onChangeText={(text) => {
                                     // var enteredText = text.replace(/[`1234567890!@#$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi, '')
-                                    setHospitalClinicName(text)
+                                    setDoctorName(text)
                                 }}
                                 onEndEditing={event => {
 
@@ -226,35 +226,38 @@ const HospitalReportsForm = () => {
 
                                 }}
                             />
+                            
                             <CustomTextInput
-                                labelName={strings.doctorName}
+                                labelName={strings.hospitalClinicName}
                                 IsRequired={false}
                                 keyboardType='default'
-                                placeholder={strings.enter + " " + strings.doctorName}
-                                value={doctorName}
+                                placeholder={strings.enter + " " + strings.hospitalClinicName}
+                                value={hospitalClinicName}
                                 editable={true}
                                 onFocus={() => {
                                 }}
                                 onChangeText={(text) => {
                                     // var enteredText = text.replace(/[`1234567890!@#$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi, '')
-                                    setDoctorName(text)
+                                    setHospitalClinicName(text)
                                 }}
                                 onEndEditing={event => {
 
                                 }}
                             />
+                            
+                            
                             <CustomTextInput
-                                labelName={strings.procedure}
+                                labelName={strings.chiefCompliant}
                                 IsRequired={false}
                                 keyboardType='default'
-                                placeholder={strings.enter + " " + strings.procedure}
-                                value={procedure}
+                                placeholder={strings.enter + " " + strings.chiefCompliant}
+                                value={chiefCompliant}
                                 editable={true}
                                 onFocus={() => {
                                 }}
                                 onChangeText={(text) => {
                                     // var enteredText = text.replace(/[`1234567890!@#$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi, '')
-                                    setProcedure(text)
+                                    setChiefCompliant(text)
                                 }}
                                 onEndEditing={event => {
 
@@ -389,21 +392,6 @@ const HospitalReportsForm = () => {
                         </View>
                         <Text style={{ color: 'black', marginTop: 10, }}>{strings.gallery}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles['flex_direction_column'], { width: '50%', alignItems: 'center' }]}
-                        onPress={() => {
-                            // Alert.alert('Reports')
-                            openGallery()
-                        }}
-                    >
-                        <View style={[styles['border_radius_6'], styles['width_90%'], styles['height_80'], styles['centerItems'], styles['border_width_1'], { borderColor: '#ecf0f1', backgroundColor: '#ecf0f1', marginTop: 5 }]}>
-                            <Image
-                                source={require('../assets/images/medilog/ic_calendar.png')}
-                                style={{ padding: 20, height: 30, width: 30 }}
-                            />
-                        </View>
-                        <Text style={{ color: 'black', marginTop: 10, }}>{strings.documents}</Text>
-                    </TouchableOpacity>
                 </CustomPopupCamGalleryDoc>
 
                 <Modal visible={isCalendarVisible} transparent={true} animationType="slide">
@@ -426,4 +414,4 @@ const HospitalReportsForm = () => {
     )
 }
 
-export default HospitalReportsForm;
+export default AppointmentsForm;

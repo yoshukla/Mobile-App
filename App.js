@@ -17,6 +17,10 @@ import HospitalReports from "./src/classes/HospitalReports";
 import OTPInputScreen from "./src/classes/OTPInputScreen";
 import UserProfile from "./src/classes/UserProfile";
 import HospitalReportsForm from "./src/classes/HospitalReportsForm";
+import AppointmentsList from "./src/classes/AppointmentsList";
+import AppointmentsForm from "./src/classes/AppointmentsForm";
+import LabReportsList from "./src/classes/LabReportsList";
+import LabReportsForm from "./src/classes/LabReportsForm";
 
 
 function BottomNavigator() {
@@ -54,7 +58,6 @@ function BottomNavigator() {
       {/* <Tab.Screen name="Home" component={Dashboard}/> */}
       <Tab.Screen name="Home" component={UserProfile}/>
       <Tab.Screen name="Profile" component={Profile} />
-      {/* <Tab.Screen name="Profile" component={HospitalReports} /> */}
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );
@@ -77,6 +80,10 @@ function NavStack() {
       <Stack.Screen name="Settings" component={Settings}/> */}
       <Stack.Screen name="HospitalReports" component={HospitalReports}/>
       <Stack.Screen name="HospitalReportsForm" component={HospitalReportsForm}/>
+      <Stack.Screen name="AppointmentsList" component={AppointmentsList}/>
+      <Stack.Screen name="AppointmentsForm" component={AppointmentsForm}/>
+      <Stack.Screen name="LabReportsList" component={LabReportsList}/>
+      <Stack.Screen name="LabReportsForm" component={LabReportsForm}/>
     </Stack.Navigator>
   )
 }

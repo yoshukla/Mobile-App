@@ -367,5 +367,11 @@ export const strings = {
     'doctorName' : 'Doctor Name',
     'procedure' : 'Procedure',
     'patientName' : 'Patient Name',
+    'chiefCompliant' : 'Chief Compliant',
+    "documents": "Documents",
+    "labReportType": "Lab Report Type",
+    "labName": "Lab Name",
+    "selectFamilyMember": "Select Family Member",
+    
 
 }  

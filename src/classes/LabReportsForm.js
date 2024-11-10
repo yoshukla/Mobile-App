@@ -19,7 +19,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import CustomPopupCamGalleryDoc from "../Modals/CustomPopupCamGalleryDoc";
 
 var styles = BuildStyleOverwrite(Styles);
-const patientNameArray =
+const familyMemberArray =
     [{
         id: 1,
         name: "Prathap",
@@ -32,10 +32,22 @@ const patientNameArray =
         id: 3,
         name: "Prathap3",
     }];
+const labReportTypeArray =
+    [{
+        id: 1,
+        name: "Blood Pressure Report",
+    },
+    {
+        id: 2,
+        name: "Blood Sugar Report",
+    },
+    {
+        id: 3,
+        name: "ECG",
+    }];
 
 
-const HospitalReportsForm = () => {
-
+const LabReportsForm = () => {
     const [showAlert, setShowAlert] = useState(false)
     const [alertTitle, setAlertTitle] = useState('');
     const [alertMessage, setAlertMessage] = useState("");
@@ -50,15 +62,15 @@ const HospitalReportsForm = () => {
     const [imageUri, setImageUri] = useState(null); // State to hold image URI
     const [isError, setIsError] = useState(false); // State to handle errors
 
-    const [hospitalClinicName, setHospitalClinicName] = useState('')
+    const [selectedLabReportType, setSelectedLabReportType] = useState(null)
+    const [selectedLabReportTypeId, setSelectedLabReportTypeId] = useState('')
     const [selectedDate, setSelectedDate] = useState(''); // Store selected date
-    const [doctorName, setDoctorName] = useState('')
-    const [procedure, setProcedure] = useState('')
-    const [remarks, setRemarks] = useState('')
-
-    const [selectedPatientName, setSelectedPatientName] = useState(null)
-    const [selectedPatientId, setSelectedPatientId] = useState('')
     const [isCalendarVisible, setCalendarVisible] = useState(false); // Calendar visibility state
+    const [labName, setLabName] = useState('')
+    const [doctorName, setDoctorName] = useState('')
+    const [selectedFamilyMemberName, setSelectedFamilyMemberName] = useState(null)
+    const [selectedFamilyMemberId, setSelectedFamilyMemberId] = useState('')
+
     const [dropDownData, setdropDownData] = useState();
     const [showDropDowns, setShowDropDowns] = useState(false)
     const [dropDownType, setDropDownType] = useState("");
@@ -75,7 +87,6 @@ const HospitalReportsForm = () => {
         setShowAlertNoButtonText(noText);
         setShowAlert(true)
     }
-    
     const handleCancelAlert = () => {
         setShowAlert(false)
     }
@@ -145,9 +156,15 @@ const HospitalReportsForm = () => {
         }
     }
 
-    const onSelectedPatientName = async (item) => {
-        setSelectedPatientName(item.name)
-        setSelectedPatientId(item.id);
+    const onSelectedLabReportType = async (item) => {
+        setSelectedLabReportType(item.name)
+        setSelectedLabReportTypeId(item.id);
+        setShowDropDowns(false);
+    }
+
+    const onSelectedFamilyMemberName = async (item) => {
+        setSelectedFamilyMemberName(item.name)
+        setSelectedFamilyMemberId(item.id);
         setShowDropDowns(false);
     }
     // Function to handle date selection
@@ -164,27 +181,23 @@ const HospitalReportsForm = () => {
 
     const navigation = useNavigation();
     const clickOnSubmit = () => {
-        if (hospitalClinicName == "") {
-            showAlertWithMessage(strings.alert, true, true, "Please enter Hospital/Clinic Name", false, true, strings.ok, strings.cancel)
+        if (selectedLabReportType == strings.select || selectedLabReportType == '' || selectedLabReportType == null) {
+            showAlertWithMessage(strings.alert, true, true, "Please select Lab Report Type", false, true, strings.ok, strings.cancel)
         } else if (selectedDate == '') {
             showAlertWithMessage(strings.alert, true, true, "Please select Date", false, true, strings.ok, strings.cancel)
+        } else if (labName == "") {
+            showAlertWithMessage(strings.alert, true, true, "Please enter Lab Name", false, true, strings.ok, strings.cancel)
         } else if (doctorName == "") {
             showAlertWithMessage(strings.alert, true, true, "Please enter Doctor Name", false, true, strings.ok, strings.cancel)
-        } else if (procedure == "") {
-            showAlertWithMessage(strings.alert, true, true, "Please enter procedure", false, true, strings.ok, strings.cancel)
-        } else if (selectedPatientName == strings.select || selectedPatientName == '' || selectedPatientName == null) {
-            showAlertWithMessage(strings.alert, true, true, "Please select Patient Name", false, true, strings.ok, strings.cancel)
-        } else if (remarks == "") {
-            showAlertWithMessage(strings.alert, true, true, "Please enter remarks", false, true, strings.ok, strings.cancel)
+        } else if (selectedFamilyMemberName == strings.select || selectedFamilyMemberName == '' || selectedFamilyMemberName == null) {
+            showAlertWithMessage(strings.alert, true, true, "Please select any one Family Member", false, true, strings.ok, strings.cancel)
         } else {
-            setHospitalClinicName(hospitalClinicName)
+            // setHospitalClinicName(hospitalClinicName)
+            setLabName(doctorName)
             setDoctorName(doctorName)
-            setProcedure(procedure)
-            setRemarks(remarks)
-            navigation.navigate('HospitalReports')  // make api call and go back, or finish this screen
+            navigation.navigate('LabReportsList')  // make api call and go back, or finish this screen
         }
     }
-
 
     return (
         <BackgroundWrapper>
@@ -196,20 +209,15 @@ const HospitalReportsForm = () => {
                     <View style={[{ marginTop: Dimensions.get('window').height / 12 }]}>
 
                         <View style={[styles['margin_top_10'], styles['width_100%'], styles['align_self_center']]}>
-                            <CustomTextInput
-                                labelName={strings.hospitalClinicName}
-                                IsRequired={false}
-                                keyboardType='default'
-                                placeholder={strings.enter + " " + strings.hospitalClinicName}
-                                value={hospitalClinicName}
-                                editable={true}
+
+                            <CustomDropDown
+                                labelName={strings.labReportType}
+                                value={selectedLabReportType != null ? selectedLabReportType : strings.select}
+                                rightSideImg={require('../assets/images/medilog/down_arrow_ic.png')}
                                 onFocus={() => {
+                                    changeDropDownData(labReportTypeArray, strings.labReportType, selectedLabReportType)
                                 }}
-                                onChangeText={(text) => {
-                                    // var enteredText = text.replace(/[`1234567890!@#$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi, '')
-                                    setHospitalClinicName(text)
-                                }}
-                                onEndEditing={event => {
+                                onEndEditing={() => {
 
                                 }}
                             />
@@ -223,6 +231,23 @@ const HospitalReportsForm = () => {
                                 }}
                                 editable={false}
                                 onEndEditing={() => {
+
+                                }}
+                            />
+                            <CustomTextInput
+                                labelName={strings.labName}
+                                IsRequired={false}
+                                keyboardType='default'
+                                placeholder={strings.enter + " " + strings.labName}
+                                value={labName}
+                                editable={true}
+                                onFocus={() => {
+                                }}
+                                onChangeText={(text) => {
+                                    // var enteredText = text.replace(/[`1234567890!@#$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi, '')
+                                    setLabName(text)
+                                }}
+                                onEndEditing={event => {
 
                                 }}
                             />
@@ -243,50 +268,14 @@ const HospitalReportsForm = () => {
 
                                 }}
                             />
-                            <CustomTextInput
-                                labelName={strings.procedure}
-                                IsRequired={false}
-                                keyboardType='default'
-                                placeholder={strings.enter + " " + strings.procedure}
-                                value={procedure}
-                                editable={true}
-                                onFocus={() => {
-                                }}
-                                onChangeText={(text) => {
-                                    // var enteredText = text.replace(/[`1234567890!@#$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi, '')
-                                    setProcedure(text)
-                                }}
-                                onEndEditing={event => {
-
-                                }}
-                            />
                             <CustomDropDown
-                                labelName={strings.patientName}
-                                value={selectedPatientName != null ? selectedPatientName : strings.select}
+                                labelName={strings.selectFamilyMember}
+                                value={selectedFamilyMemberName != null ? selectedFamilyMemberName : strings.select}
                                 rightSideImg={require('../assets/images/medilog/down_arrow_ic.png')}
                                 onFocus={() => {
-                                    changeDropDownData(patientNameArray, strings.patientName, selectedPatientName)
+                                    changeDropDownData(familyMemberArray, strings.selectFamilyMember, selectedFamilyMemberName)
                                 }}
                                 onEndEditing={() => {
-
-                                }}
-                            />
-
-                            <CustomTextInput
-                                labelName={strings.remarks}
-                                IsRequired={false}
-                                keyboardType='default'
-                                placeholder={strings.enter + " " + strings.remarks}
-                                value={remarks}
-                                secureTextEntry={false}
-                                editable={true}
-                                onFocus={() => {
-                                }}
-                                onChangeText={(text) => {
-                                    // var enteredText = text.replace(/[`1234567890!@#$%^&*()_|+\-=?;:'",<>\{\}\[\]\\\/]/gi, '')
-                                    setRemarks(text)
-                                }}
-                                onEndEditing={event => {
 
                                 }}
                             />
@@ -336,7 +325,8 @@ const HospitalReportsForm = () => {
                         dropDownType={dropDownType}
                         listItems={dropDownData}
                         selectedItem={selectedDropDownItem}
-                        onSelectedPatientName={(item) => onSelectedPatientName(item)}
+                        onSelectedLabReportType={(item) => onSelectedLabReportType(item)}
+                        onSelectedFamilyMemberName={(item) => onSelectedFamilyMemberName(item)}
                         closeModal={() => setShowDropDowns(false)} />
                 }
 
@@ -389,21 +379,6 @@ const HospitalReportsForm = () => {
                         </View>
                         <Text style={{ color: 'black', marginTop: 10, }}>{strings.gallery}</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[styles['flex_direction_column'], { width: '50%', alignItems: 'center' }]}
-                        onPress={() => {
-                            // Alert.alert('Reports')
-                            openGallery()
-                        }}
-                    >
-                        <View style={[styles['border_radius_6'], styles['width_90%'], styles['height_80'], styles['centerItems'], styles['border_width_1'], { borderColor: '#ecf0f1', backgroundColor: '#ecf0f1', marginTop: 5 }]}>
-                            <Image
-                                source={require('../assets/images/medilog/ic_calendar.png')}
-                                style={{ padding: 20, height: 30, width: 30 }}
-                            />
-                        </View>
-                        <Text style={{ color: 'black', marginTop: 10, }}>{strings.documents}</Text>
-                    </TouchableOpacity>
                 </CustomPopupCamGalleryDoc>
 
                 <Modal visible={isCalendarVisible} transparent={true} animationType="slide">
@@ -426,4 +401,4 @@ const HospitalReportsForm = () => {
     )
 }
 
-export default HospitalReportsForm;
+export default LabReportsForm;

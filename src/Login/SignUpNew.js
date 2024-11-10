@@ -111,6 +111,9 @@ const SignUpNew = () => {
         setShowAlertNoButtonText(noText);
         setShowAlert(true)
     }
+    const handleCancelAlert = () => {
+        setShowAlert(false)
+    }
 
     const handlePermissions = async () => {
         const permissionsGranted = await requestCameraAndStoragePermissions();
@@ -213,57 +216,54 @@ const SignUpNew = () => {
 
     const navigation = useNavigation();
     const clickOnSignIn = () => {
-        navigation.navigate('OTPInputScreen')
-        // if (fullName == "") {
-        //     showAlertWithMessage(strings.alert, true, true, "Please enter fullName", false, true, strings.ok, strings.cancel)
-        // } else if (emailId == "") {
-        //     Alert.alert("Enter EmailId")
-        // } else if (mobileNumber == "") {
-        //     Alert.alert("Please enter mobile Number")
-        // } else if (mobileNumber.length < 10) {
-        //     Alert.alert("Please enter valid mobile Number")
-        // } else if (emergencyContactNumber == "") {
-        //     Alert.alert("Please enter Emergency Contact Number")
-        // } else if (emergencyContactNumber.length < 10) {
-        //     Alert.alert("Please enter valid Emergency Contact Number")
-        // } else if (mobileNumber == emergencyContactNumber) {
-        //     Alert.alert("Mobile number and emergency contact number should not be same")
-        // } else if (selectedCityTown == strings.select || selectedCityTown == '' || selectedCityTown == null) {
-        //     Alert.alert("Please select City/Town")
-        // } else if (selectedState == strings.select) {
-        //     Alert.alert("Please select State")
-        // } else if (selectedDate == '') {
-        //     Alert.alert("Please select DOB")
-        // } else if (selectedGenderName == strings.select) {
-        //     Alert.alert("Please select gender")
-        // } else if (selectedBloodGroupName == strings.select) {
-        //     Alert.alert("Please select blood group")
-        // } else if (password == "") {
-        //     Alert.alert("Please enter password")
-        // } else if (confirmPassword == "") {
-        //     Alert.alert("Please enter confirm Password")
-        // } else if (password != confirmPassword) {
-        //     Alert.alert("Password does not match, please enter correct password")
-        // }
-        // else {
-        //     setEmailId(emailId)
-        //     setFullName(fullName)
-        //     setMobileNumber(mobileNumber)
-        //     setEmergencyContactNumber(emergencyContactNumber)
-        //     setPassword(password)
-        //     setConfirmPassword(confirmPassword)
-        //     navigation.navigate('Dashboard')
-        // }
+        // navigation.navigate('OTPInputScreen')
+        if (fullName == "") {
+            showAlertWithMessage(strings.alert, true, true, "Please enter fullName", false, true, strings.ok, strings.cancel)
+        } else if (emailId == "") {
+            showAlertWithMessage(strings.alert, true, true, "Enter EmailId", false, true, strings.ok, strings.cancel)
+        } else if (mobileNumber == "") {
+            showAlertWithMessage(strings.alert, true, true, "Please enter mobile Number", false, true, strings.ok, strings.cancel)
+        } else if (mobileNumber.length < 10) {
+            showAlertWithMessage(strings.alert, true, true, "Please enter valid mobile Number", false, true, strings.ok, strings.cancel)
+        } else if (emergencyContactNumber == "") {
+            showAlertWithMessage(strings.alert, true, true, "Please enter Emergency Contact Number", false, true, strings.ok, strings.cancel)
+        } else if (emergencyContactNumber.length < 10) {
+            showAlertWithMessage(strings.alert, true, true, "Please enter valid Emergency Contact Number", false, true, strings.ok, strings.cancel)
+        } else if (mobileNumber == emergencyContactNumber) {
+            showAlertWithMessage(strings.alert, true, true, "Mobile number and emergency contact number should not be same", false, true, strings.ok, strings.cancel)
+        } else if (selectedCityTown == strings.select || selectedCityTown == '' || selectedCityTown == null) {
+            showAlertWithMessage(strings.alert, true, true, "Please select City/Town", false, true, strings.ok, strings.cancel)
+        } else if (selectedState == strings.select) {
+            showAlertWithMessage(strings.alert, true, true, "Please select State", false, true, strings.ok, strings.cancel)
+        } else if (selectedDate == '') {
+            showAlertWithMessage(strings.alert, true, true, "Please select DOB", false, true, strings.ok, strings.cancel)
+        } else if (selectedGenderName == strings.select) {
+            showAlertWithMessage(strings.alert, true, true, "Please select gender", false, true, strings.ok, strings.cancel)
+        } else if (selectedBloodGroupName == strings.select) {
+            showAlertWithMessage(strings.alert, true, true, "Please select blood group", false, true, strings.ok, strings.cancel)
+        } else if (password == "") {
+            showAlertWithMessage(strings.alert, true, true, "Please enter password", false, true, strings.ok, strings.cancel)
+        } else if (confirmPassword == "") {
+            showAlertWithMessage(strings.alert, true, true, "Please enter confirm Password", false, true, strings.ok, strings.cancel)
+        } else if (password != confirmPassword) {
+            showAlertWithMessage(strings.alert, true, true, "Password does not match, please enter correct password", false, true, strings.ok, strings.cancel)
+        }
+        else {
+            setEmailId(emailId)
+            setFullName(fullName)
+            setMobileNumber(mobileNumber)
+            setEmergencyContactNumber(emergencyContactNumber)
+            setPassword(password)
+            setConfirmPassword(confirmPassword)
+            navigation.navigate('OTPInputScreen')
+        }
     }
 
     const termsConditionsClick = () => {
-        // Alert.alert('Success', 'You have clicked on Terms and Conditions text.');
-        navigation.navigate("LanguageChange")
+        Alert.alert('Success', 'You have clicked on Terms and Conditions text.');
     };
     const privacyPolicyClick = () => {
-        // Alert.alert('Success', 'You have clicked on Privacy Policy text.');
-
-        navigation.navigate("LandingScreen")
+        Alert.alert('Success', 'You have clicked on Privacy Policy text.');
     };
 
     return (
@@ -501,7 +501,7 @@ const SignUpNew = () => {
                                     source={require('../assets/images/medilog/ic_checkbox.png')}
                                     style={{ width: 20, height: 20 }}
                                 />
-                                <View style={{ marginLeft: 10, marginRight:10, flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', }}>
+                                <View style={{ marginLeft: 10, marginRight: 10, flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap', }}>
                                     <Text style={{ color: '#000000', fontSize: 14 }}>{strings.bysigningupyouagreetoour} </Text>
                                     <TouchableOpacity onPress={() => termsConditionsClick()}>
                                         <Text style={{ color: '#EB7805', fontSize: 14, textDecorationLine: 'underline' }}>{strings.termsConditions} </Text>
@@ -520,13 +520,6 @@ const SignUpNew = () => {
                                 onPress={clickOnSignIn}
                             />
                         </View>
-                        {/* <Button
-                            title="show bottom popup"
-                            onPress={() => {
-                                setPopupVisible(true)
-                                // handlePermissions()
-                            }}
-                        /> */}
                     </View>
                 </ScrollView>
                 {
@@ -540,9 +533,7 @@ const SignUpNew = () => {
                         onSelectedGender={(item) => onSelectedGender(item)}
                         onSelectedBloodGroup={(item) => onSelectedBloodGroup(item)}
                         closeModal={() => setShowDropDowns(false)} />
-
                 }
-
                 {showAlert && (
                     <CustomAlert
                         onPressClose={() => { handleCancelAlert() }}
@@ -557,7 +548,6 @@ const SignUpNew = () => {
                         yesButtonText={showAlertyesButtonText}
                         noButtonText={showAlertNoButtonText} />
                 )}
-
                 <CustomPopupCamGalleryDoc
                     visible={isPopupVisible}
                     onClose={""}

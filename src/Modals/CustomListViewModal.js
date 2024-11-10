@@ -8,7 +8,7 @@ var styles = BuildStyleOverwrite(Styles);
 
 
 
-const CustomListViewModal = ({onSelectedState,onSelectedCityTown,onSelectedGender,onSelectedBloodGroup,onSelectedPatientName,  ...props}) => {
+const CustomListViewModal = ({onSelectedState,onSelectedCityTown,onSelectedGender,onSelectedBloodGroup,onSelectedPatientName, onSelectedLabReportType, onSelectedFamilyMemberName, ...props}) => {
     // const { onSelectedState } = props; // Access onSelectedState from props
     const [listItems, setListItems] = useState(props.listItems);
     const [search, setSearch] = useState('');
@@ -49,6 +49,10 @@ const CustomListViewModal = ({onSelectedState,onSelectedCityTown,onSelectedGende
             onSelectedBloodGroup(item);
         } else if(type === strings.patientName){
             onSelectedPatientName(item);
+        } else if(type === strings.labReportType){
+            onSelectedLabReportType(item);
+        } else if(type === strings.selectFamilyMember){
+            onSelectedFamilyMemberName(item);
         }
     };
 

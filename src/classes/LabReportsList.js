@@ -5,52 +5,45 @@ const data = [
     {
         id: '1',
         date: 'May 27, 2024 - 10:50 PM',
-        hospital: 'Matlis Hospitals',
-        procedure: 'ECG',
-        summary: 'Given all reports and medicines.',
+        labReportType: 'Blood Pressure Report',
     },
     {
         id: '2',
-        date: 'June 12, 2024 - 02:30 PM',
-        hospital: 'City Clinic',
-        procedure: 'Blood Test',
-        summary: 'Blood sample taken for analysis.',
+        date: 'May 20, 2024 - 12:30 PM',
+        labReportType: 'Blood Sugar Report',
     },
     // Add more items as needed
 ];
 
 const ListItem = ({ item }) => (
     <View style={styles.itemContainer}>
-        <Text style={styles.dateText}>{item.date}</Text>
         <View style={styles.detailsContainer}>
             <Image
-                source={require('../assets/images/medilog/ic_records_disabled.png')}
+                source={require('../assets/images/medilog/ic_doctor.png')}
                 style={styles.image}
             />
             <View style={styles.textContainer}>
-                <Text style={styles.hospitalText}>Hospital: {item.hospital}</Text>
-                <Text style={styles.procedureText}>Procedure: {item.procedure}</Text>
-                <Text style={styles.summaryText}>Discharge Summary: {item.summary}</Text>
+                <Text style={styles.headerText}>{item.labReportType}</Text>
+                <Text style={styles.secondaryText}>{item.date}</Text>
             </View>
         </View>
     </View>
 );
 
-const HospitalReports = () => {
+const LabReportsList = () => {
     const [search, setSearch] = useState('');
     const [filteredData, setFilteredData] = useState(data);
     const navigation = useNavigation();
     const handleFloatingButtonPress = () => {
         // Handle button press
-        console.log('Floating button pressed!');
-        navigation.navigate('HospitalReportsForm')
+        navigation.navigate('LabReportsForm')
     };
 
     const handleSearch = (text) => {
         setSearch(text);
         if (text) {
             const filtered = data.filter((item) =>
-                item.hospital.toLowerCase().includes(text.toLowerCase())
+                item.labReportType.toLowerCase().includes(text.toLowerCase())
             );
             setFilteredData(filtered);
         } else {
@@ -67,7 +60,7 @@ const HospitalReports = () => {
                 />
                 <TextInput
                     style={styles.searchInput}
-                    placeholder="Search by hospital name"
+                    placeholder="Search Health Record"
                     value={search}
                     onChangeText={handleSearch}
                 />
@@ -145,12 +138,12 @@ const styles = StyleSheet.create({
     textContainer: {
         flex: 1,
     },
-    hospitalText: {
+    headerText: {
         fontSize: 16,
         fontWeight: 'bold',
         color: '#2B1394',
     },
-    procedureText: {
+    secondaryText: {
         fontSize: 14,
         color: '#666',
     },
@@ -183,4 +176,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default HospitalReports;
+export default LabReportsList;

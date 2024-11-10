@@ -1,16 +1,25 @@
 import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CustomPopup from "../Modals/CustomPopup";
 import { Styles } from '../assets/style/styles';
 import { BuildStyleOverwrite } from "../assets/style/BuildStyle";
 
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 var styles = BuildStyleOverwrite(Styles);
 
 const Records = () => {
     const navigation = useNavigation();
-    const [isPopupVisible, setPopupVisible] = useState(true);
+    const [isPopupVisible, setPopupVisible] = useState(false);
+
+    useFocusEffect(
+        React.useCallback(() => {
+          // Set the boolean to true every time the tab is focused
+          setPopupVisible(true);
+        //   return () => setIsLoaded(false); // Optional: Cleanup when leaving the screen
+        }, [])
+      );
+
     return (
         <View>
             <Text>Records</Text>
@@ -37,7 +46,7 @@ const Records = () => {
                     style={[styles['flex_direction_row'], { width: '100%', marginTop: 25, alignItems: 'center' }]}
                     onPress={() => {
                         setPopupVisible(false)
-                        navigation.navigate('HospitalReport')
+                        navigation.navigate('LabReportsList')
                     }}
                 >
                     <Image
@@ -48,7 +57,11 @@ const Records = () => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={[styles['flex_direction_row'], { width: '100%', marginTop: 30, alignItems: 'center' }]}>
+                    style={[styles['flex_direction_row'], { width: '100%', marginTop: 30, alignItems: 'center' }]}
+                    onPress={() => {
+                        setPopupVisible(false)
+                        navigation.navigate('AppointmentsList')
+                    }}>
 
                     <Image
                         source={require('../assets/images/medilog/ic_appointments.png')}
