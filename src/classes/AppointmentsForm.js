@@ -192,7 +192,7 @@ const AppointmentsForm = () => {
 
                 <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='handled'>
 
-                    <View style={[{ marginTop: Dimensions.get('window').height / 12 }]}>
+                    <View style={[{ marginTop: Dimensions.get('window').height / 12,}]}>
 
                         <View style={[styles['margin_top_10'], styles['width_100%'], styles['align_self_center']]}>
                             

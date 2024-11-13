@@ -216,47 +216,47 @@ const SignUpNew = () => {
 
     const navigation = useNavigation();
     const clickOnSignIn = () => {
-        // navigation.navigate('OTPInputScreen')
-        if (fullName == "") {
-            showAlertWithMessage(strings.alert, true, true, "Please enter fullName", false, true, strings.ok, strings.cancel)
-        } else if (emailId == "") {
-            showAlertWithMessage(strings.alert, true, true, "Enter EmailId", false, true, strings.ok, strings.cancel)
-        } else if (mobileNumber == "") {
-            showAlertWithMessage(strings.alert, true, true, "Please enter mobile Number", false, true, strings.ok, strings.cancel)
-        } else if (mobileNumber.length < 10) {
-            showAlertWithMessage(strings.alert, true, true, "Please enter valid mobile Number", false, true, strings.ok, strings.cancel)
-        } else if (emergencyContactNumber == "") {
-            showAlertWithMessage(strings.alert, true, true, "Please enter Emergency Contact Number", false, true, strings.ok, strings.cancel)
-        } else if (emergencyContactNumber.length < 10) {
-            showAlertWithMessage(strings.alert, true, true, "Please enter valid Emergency Contact Number", false, true, strings.ok, strings.cancel)
-        } else if (mobileNumber == emergencyContactNumber) {
-            showAlertWithMessage(strings.alert, true, true, "Mobile number and emergency contact number should not be same", false, true, strings.ok, strings.cancel)
-        } else if (selectedCityTown == strings.select || selectedCityTown == '' || selectedCityTown == null) {
-            showAlertWithMessage(strings.alert, true, true, "Please select City/Town", false, true, strings.ok, strings.cancel)
-        } else if (selectedState == strings.select) {
-            showAlertWithMessage(strings.alert, true, true, "Please select State", false, true, strings.ok, strings.cancel)
-        } else if (selectedDate == '') {
-            showAlertWithMessage(strings.alert, true, true, "Please select DOB", false, true, strings.ok, strings.cancel)
-        } else if (selectedGenderName == strings.select) {
-            showAlertWithMessage(strings.alert, true, true, "Please select gender", false, true, strings.ok, strings.cancel)
-        } else if (selectedBloodGroupName == strings.select) {
-            showAlertWithMessage(strings.alert, true, true, "Please select blood group", false, true, strings.ok, strings.cancel)
-        } else if (password == "") {
-            showAlertWithMessage(strings.alert, true, true, "Please enter password", false, true, strings.ok, strings.cancel)
-        } else if (confirmPassword == "") {
-            showAlertWithMessage(strings.alert, true, true, "Please enter confirm Password", false, true, strings.ok, strings.cancel)
-        } else if (password != confirmPassword) {
-            showAlertWithMessage(strings.alert, true, true, "Password does not match, please enter correct password", false, true, strings.ok, strings.cancel)
-        }
-        else {
-            setEmailId(emailId)
-            setFullName(fullName)
-            setMobileNumber(mobileNumber)
-            setEmergencyContactNumber(emergencyContactNumber)
-            setPassword(password)
-            setConfirmPassword(confirmPassword)
-            navigation.navigate('OTPInputScreen')
-        }
+        navigation.navigate('OTPInputScreen')
+        // if (fullName == "") {
+        //     showAlertWithMessage(strings.alert, true, true, "Please enter fullName", false, true, strings.ok, strings.cancel)
+        // } else if (emailId == "") {
+        //     showAlertWithMessage(strings.alert, true, true, "Enter EmailId", false, true, strings.ok, strings.cancel)
+        // } else if (mobileNumber == "") {
+        //     showAlertWithMessage(strings.alert, true, true, "Please enter mobile Number", false, true, strings.ok, strings.cancel)
+        // } else if (mobileNumber.length < 10) {
+        //     showAlertWithMessage(strings.alert, true, true, "Please enter valid mobile Number", false, true, strings.ok, strings.cancel)
+        // } else if (emergencyContactNumber == "") {
+        //     showAlertWithMessage(strings.alert, true, true, "Please enter Emergency Contact Number", false, true, strings.ok, strings.cancel)
+        // } else if (emergencyContactNumber.length < 10) {
+        //     showAlertWithMessage(strings.alert, true, true, "Please enter valid Emergency Contact Number", false, true, strings.ok, strings.cancel)
+        // } else if (mobileNumber == emergencyContactNumber) {
+        //     showAlertWithMessage(strings.alert, true, true, "Mobile number and emergency contact number should not be same", false, true, strings.ok, strings.cancel)
+        // } else if (selectedCityTown == strings.select || selectedCityTown == '' || selectedCityTown == null) {
+        //     showAlertWithMessage(strings.alert, true, true, "Please select City/Town", false, true, strings.ok, strings.cancel)
+        // } else if (selectedState == strings.select) {
+        //     showAlertWithMessage(strings.alert, true, true, "Please select State", false, true, strings.ok, strings.cancel)
+        // } else if (selectedDate == '') {
+        //     showAlertWithMessage(strings.alert, true, true, "Please select DOB", false, true, strings.ok, strings.cancel)
+        // } else if (selectedGenderName == strings.select) {
+        //     showAlertWithMessage(strings.alert, true, true, "Please select gender", false, true, strings.ok, strings.cancel)
+        // } else if (selectedBloodGroupName == strings.select) {
+        //     showAlertWithMessage(strings.alert, true, true, "Please select blood group", false, true, strings.ok, strings.cancel)
+        // } else if (password == "") {
+        //     showAlertWithMessage(strings.alert, true, true, "Please enter password", false, true, strings.ok, strings.cancel)
+        // } else if (confirmPassword == "") {
+        //     showAlertWithMessage(strings.alert, true, true, "Please enter confirm Password", false, true, strings.ok, strings.cancel)
+        // } else if (password != confirmPassword) {
+        //     showAlertWithMessage(strings.alert, true, true, "Password does not match, please enter correct password", false, true, strings.ok, strings.cancel)
+        // }
+        // else {
+        //     setEmailId(emailId)
+        //     setFullName(fullName)
+        //     setMobileNumber(mobileNumber)
+        //     setEmergencyContactNumber(emergencyContactNumber)
+        //     setPassword(password)
+        //     setConfirmPassword(confirmPassword)
+        //     navigation.navigate('OTPInputScreen')
+        // }
     }
 
     const termsConditionsClick = () => {
